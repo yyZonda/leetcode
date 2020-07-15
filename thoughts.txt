@@ -1,0 +1,4 @@
+When i first finish the question, i got a AC. But the solution is very slow. so i want to finger out the reason. i analyze the solution of others, i found that this is because ArrayList 
+which i used to find whether the TreeNode should be delete is inefficient. And if i replaced the ArrayList with HashSet, my solution will be 6 more faster .
+
+The knowledge i should care about is the principle of List and Set, and i should compare them in different operations.
