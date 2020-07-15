@@ -1,0 +1,39 @@
+class Solution {
+    public Node connect(Node root) {
+        // Queue<Node> t=new LinkedList();
+        // if(root==null)
+        //     return null;
+        // t.offer(root);
+        // while(!t.isEmpty()){
+        //     int s=t.size();
+        //     while(s-->1){
+        //         Node n1=t.poll();
+        //         Node n2=t.peek();
+        //         if(n1.left!=null){
+        //             t.offer(n1.left);
+        //             t.offer(n1.right);
+        //         }
+        //         n1.next=n2;
+        //     }
+        //     Node n=t.poll();
+        //     if(n.left!=null){
+        //             t.offer(n.left);
+        //             t.offer(n.right);
+        //         }
+        // }
+        // return root;
+        helper(root);
+        return root;
+    }
+    public void helper(Node root){
+        if(root==null)
+            return;      
+        if(root.left!=null)
+            root.left.next=root.right;
+        if(root.left!=null&&root.next!=null)
+            root.right.next=root.next.left;
+        helper(root.left);
+        helper(root.right);
+    }
+    
+}

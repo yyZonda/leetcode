@@ -1,0 +1,8 @@
+At first, my thought is quite straight. use Queue, so i can use BFS. connect left and right node layer by layer.
+
+Then i thought another solution which make use of TreeNode next, if the current node 's left is not null :
+we can make left.next=right;
+if current node's right.next != null
+which means right.next=next.left
+
+using recursion, it is quite simple and save the memory usage.

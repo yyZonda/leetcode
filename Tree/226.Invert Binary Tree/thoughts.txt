@@ -1,0 +1,3 @@
+The question is quite simple,  simple recurtion. then current node's left=right,
+right = left.
+then we can get the answer.

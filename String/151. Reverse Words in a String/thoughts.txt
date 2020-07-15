@@ -1,0 +1,2 @@
+the solution is easy, using split to cut the String into String[] using regex. 
+trim() is important, which can trim " "in the head and in the end of the word. 
