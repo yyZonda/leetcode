@@ -1,4 +1,10 @@
-When i first finish the question, i got a AC. But the solution is very slow. so i want to finger out the reason. i analyze the solution of others, i found that this is because ArrayList 
-which i used to find whether the TreeNode should be delete is inefficient. And if i replaced the ArrayList with HashSet, my solution will be 6 more faster .
+When i first finish the question, i got a AC. But the solution is very slow. so i want to finger out the reason.
+ i analyze the solution of others, i found that this is because ArrayList 
+which i used to find whether the TreeNode should be delete is inefficient. 
+And if i replaced the ArrayList with HashSet, my solution will be 6 more faster .
 
 The knowledge i should care about is the principle of List and Set, and i should compare them in different operations.
+
+
+Another quesions i met is when i try to fill a List<Integer> with int[] , for example List<Integer> r=new ArrayList(Arrays.asList(new Int[]{1,2})).
+i cannot do it. after a while, i konw the reason. Because of generics, so i cannot use the  primitive type int .  i have to use the wrapper class Integer.
