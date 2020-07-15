@@ -1,0 +1,5 @@
+it is about a tree, we should find the longest distance between arbitrary point in the tree.
+
+the basic thoughts is traverse the whole tree. Every point 's biggest distance is distance of left+distance of right.
+compare every point with the Max value. 
+then every point will return the max distance: Math.max(left,right)+1
