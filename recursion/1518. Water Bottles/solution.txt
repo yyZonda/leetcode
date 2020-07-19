@@ -1,0 +1,13 @@
+class Solution {
+    public int numWaterBottles(int numBottles, int numExchange) {
+        return helper(0,numExchange,numBottles);
+    }
+    public int helper(int numBottles, int numExchange,int drinks){
+        int num=0;
+        int n1=(drinks+numBottles)/numExchange;
+        int n2=(drinks+numBottles)%numExchange;
+        if(n1!=0)
+        num=helper(n2,numExchange,n1);
+        return drinks+num;
+    }
+}

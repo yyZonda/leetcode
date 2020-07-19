@@ -1,0 +1,57 @@
+class Node{
+    public List<Integer> neighbors;
+    public Node(){
+        neighbors=new ArrayList();
+    }
+}
+class Solution {
+    public int[] countSubTrees(int n, int[][] edges, String labels) {
+        // Arrays.sort(edges,new Comparator<int[]>(){
+        //     @Override
+        //     public int compare(int[] a,int[] b){
+        //         if(a[0]!=b[0])
+        //             return a[0]-b[0];
+        //         else
+        //             return a[1]-b[1];
+        //     }
+        // });
+        HashMap<Integer,Node> hm=new HashMap();
+        for(int[] i:edges){
+            Node n1=getNode(hm,i[0]);
+            Node n2=getNode(hm,i[1]);
+            n1.neighbors.add(i[1]);
+            n2.neighbors.add(i[0]);
+        }
+        int[] res=new int[n];
+        helper(edges,labels,0,res,-1,hm);
+        return res;
+    }
+    public HashMap<Character,Integer> helper(int[][] edges,String labels,int cur,int[] res,int father,HashMap<Integer,Node> hm){
+        Node current=getNode(hm,cur);
+        HashMap<Character,Integer> total=new HashMap();
+        total.put(labels.charAt(cur),1);
+        for(Integer i:current.neighbors){
+            if(i==father)
+                continue;      
+                HashMap<Character,Integer> b=new HashMap();
+                b=helper(edges,labels,i,res,cur,hm);
+                Iterator<Map.Entry<Character,Integer>> entries=b.entrySet().iterator();
+                while(entries.hasNext()){
+                    Map.Entry<Character,Integer> e=entries.next();
+                    if(total.containsKey(e.getKey()))
+                        total.put(e.getKey(),total.get(e.getKey())+e.getValue());
+                    else
+                        total.put(e.getKey(),e.getValue());  
+            }
+        }
+        res[cur]=total.get(labels.charAt(cur));       
+        return total;
+    }
+    public Node getNode(HashMap<Integer, Node> map,int n){
+        if(map.containsKey(n))
+            return map.get(n);
+        Node node=new Node();
+        map.put(n,node);
+        return node;
+    }
+}
