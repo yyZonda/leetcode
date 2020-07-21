@@ -1,0 +1,39 @@
+class Solution {
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+        if(prerequisites.length==0){
+            int[] res=new int[numCourses];
+            for(int i=0;i<numCourses;i++)
+                res[i]=i;
+            return res;
+        }
+        HashMap<Integer,Integer> num=new HashMap();
+        for(int i=0;i<numCourses;i++)
+            num.put(i,0);
+        int[] res=new int[numCourses];
+        Queue<Integer> q=new LinkedList();
+        for(int[] i:prerequisites){
+            num.put(i[0],num.get(i[0])+1);
+        }
+        int cur=0;
+        for(Map.Entry<Integer,Integer> i:num.entrySet())
+            if(i.getValue()==0){
+                q.offer(i.getKey());
+                res[cur++]=i.getKey();
+            }
+        
+        while(!q.isEmpty()&&cur<res.length){
+            int tmp=q.poll();
+            for(int[] i:prerequisites){
+                if(i[1]==tmp){
+                    num.put(i[0],num.get(i[0])-1);
+                    if(num.get(i[0])==0){
+                        q.offer(i[0]);
+                        res[cur++]=i[0];
+                    }
+                }
+            }
+        }
+        
+        return cur==numCourses?res:new int[0];
+    }
+}
