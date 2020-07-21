@@ -1,0 +1,44 @@
+class Solution {
+    public List<String> removeInvalidParentheses(String s) {
+        
+        Queue<String> words = new LinkedList();
+        Set<String>  meet = new HashSet();
+        List<String> res = new ArrayList();
+        if(s==null)
+            return res;
+        words.offer(s);
+        meet.add(s);
+        boolean found=false;
+        while(!words.isEmpty()){
+            String tmp=words.poll();
+            
+            if(isValid(tmp)){
+                res.add(tmp);
+                found=true;
+            }
+            if(found)
+                continue;
+            for(int i=0;i<tmp.length();i++){
+                if(tmp.charAt(i)!='('&&tmp.charAt(i)!=')')
+                    continue;
+                String ns=tmp.substring(0,i)+tmp.substring(i+1);
+                if(!meet.contains(ns)){
+                    words.offer(ns);
+                    meet.add(ns);
+                }
+            }
+        }
+        return res;
+    }
+    
+    public boolean isValid(String s){
+        int count=0;
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i)=='(')
+                count++;
+            if((s.charAt(i)==')')&&count--==0)
+                return false;
+        }
+        return count==0;
+    }
+}
