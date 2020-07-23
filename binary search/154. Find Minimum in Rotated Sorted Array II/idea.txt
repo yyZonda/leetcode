@@ -1,0 +1,5 @@
+一个升序的数组在某个点被调转。
+
+1.Nums[middle]>nums[right] 说明middle和right之间被调转了。所以调转点在middle和right之间.
+2.Nums[middle]<nums[right],这是正常的，那么调转点可能在left和middle之间
+3.Nums[middle]==nums[right]，左右都有可能，直接把right--。

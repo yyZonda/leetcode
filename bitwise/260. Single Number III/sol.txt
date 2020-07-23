@@ -1,0 +1,31 @@
+class Solution {
+    public int[] singleNumber(int[] nums) {
+        // int[] r=new int[2];
+        // int cur=0;
+        // Map<Integer,Integer> res=new HashMap();
+        // for(int i:nums){
+        //     if(res.containsKey(i))
+        //         res.put(i,res.get(i)+1);
+        //     else
+        //         res.put(i,1);
+        // }
+        // for(Map.Entry<Integer,Integer> i:res.entrySet()){
+        //     if(i.getValue()==1)
+        //         r[cur++]=i.getKey();
+        // }
+        // return r;
+        int dif=0;
+        for(int num:nums){
+            dif^=num;
+        }
+        dif&=-dif;
+        int[] r=new int[2];
+        for(int num:nums){
+            if((num&dif)==0)
+                r[0]^=num;
+            else
+                r[1]^=num;
+        }
+        return r;
+    }
+}
