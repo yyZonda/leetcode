@@ -1,0 +1,27 @@
+class Solution {
+    public int[] searchRange(int[] nums, int target) {
+        int[] res={-1,-1};
+        helper(nums,target,0,nums.length-1,res);
+        return res;
+    }
+    public void helper(int[] nums, int target, int left,int right,int[] res){
+        if(left>right)
+            return;
+        int middle=left+(right-left)/2;
+        if(nums[middle]==target){
+            if(res[0]!=-1)
+            res[0]=Math.min(res[0],middle);
+            else
+                res[0]=middle;
+            res[1]=Math.max(res[1],middle);
+            helper(nums,target,left,middle-1,res);
+            helper(nums,target,middle+1,right,res);
+        }
+        else if(nums[middle]>target)
+                helper(nums,target,left,middle-1,res);
+        else
+                     helper(nums,target,middle+1,right,res);
+                
+                       
+    }
+}
