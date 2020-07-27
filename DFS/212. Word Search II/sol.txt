@@ -1,0 +1,31 @@
+class Solution {
+    public List<String> findWords(char[][] board, String[] words) {
+        Set<String> res=new HashSet();
+        boolean[][] meet=new boolean[board.length][board[0].length];
+        for(String i:words)
+            for(int a=0;a<board.length;a++)
+                for(int b=0;b<board[0].length;b++){
+                    if(board[a][b]==i.charAt(0))
+                        if(helper(board,i,meet,a,b,0))
+                            res.add(i);
+                }
+        return new ArrayList<String>(res);
+    }
+    public boolean helper(char[][] board,String word,boolean[][] meet,int r,int c,int cur){
+        if(cur==word.length()){
+            return true;
+        }
+        if(r<0||r>=board.length||c<0||c>=board[0].length)
+            return false;     
+        if(!meet[r][c]&&word.charAt(cur)==board[r][c]){
+            meet[r][c]=true;
+            boolean t=helper(board,word,meet,r+1,c,cur+1)||
+            helper(board,word,meet,r-1,c,cur+1)||
+            helper(board,word,meet,r,c+1,cur+1)||
+            helper(board,word,meet,r,c-1,cur+1);           
+            meet[r][c]=false;
+            return t;
+        }
+        return false;
+    }
+}
