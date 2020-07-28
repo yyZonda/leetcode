@@ -1,0 +1,15 @@
+class Solution {
+    public int longestCommonSubsequence(String text1, String text2) {
+        int l1=text1.length(),l2=text2.length();
+        int[][] res=new int[l1+1][l2+1];
+        for(int a=1;a<l1+1;a++)
+            for(int b=1;b<l2+1;b++){
+                if(text1.charAt(a-1)==text2.charAt(b-1))
+                    res[a][b]=res[a-1][b-1]+1;
+                else
+                     res[a][b]=Math.max(res[a][b-1],res[a-1][b]);
+            }
+        return res[l1][l2];
+        
+    }
+}
