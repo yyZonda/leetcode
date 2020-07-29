@@ -1,0 +1,53 @@
+class Solution {
+    public int maxCoins(int[] nums) {
+        // HashSet<Integer> hs=new HashSet();
+        // // HashMap<Integer,Integer> hm=new HashMap();
+        // return helper(nums,hs);
+        int[] b=new int[nums.length+2];
+        for(int i=1;i<b.length-1;i++)
+            b[i]=nums[i-1];
+        b[0]=1;
+        b[b.length-1]=1;
+        int[][] memory=new int[b.length][b.length];
+        return helper(b,0,b.length-1,memory);
+    }
+    public int helper(int[] b,int left,int right,int[][] memory){
+        if(left+1==right)
+            return 0;
+        if(memory[left][right]!=0)
+            return memory[left][right];        
+        int max=0;
+        for(int i=left+1;i<right;i++){
+            max=Math.max(max,b[left]*b[i]*b[right]+helper(b,left,i,memory)
+                         +helper(b,i,right,memory));           
+        }
+        memory[left][right]=max;
+        return max;
+    }
+    
+    // public int helper(int[] nums,HashSet<Integer> hs){
+    //     if(hs.size()==nums.length)
+    //         return 0;
+    //     int max=0;
+    //     for(int i=0;i<nums.length;i++){
+    //         if(hs.contains(i))
+    //             continue;
+    //         hs.add(i);
+    //         int left=i-1,right=i+1;
+    //         int bl=1,br=1;
+    //         while(hs.contains(left))
+    //             left--;
+    //         while(hs.contains(right))
+    //             right++;
+    //         if(left>=0)
+    //             bl=nums[left];
+    //         if(right<nums.length)
+    //             br=nums[right];
+    //         int tmp=bl*nums[i]*br;
+    //         int next=helper(nums,hs);
+    //         max=Math.max(tmp+next,max);
+    //         hs.remove(i);
+    //     }
+    //     return max;
+    // } 
+}

@@ -1,0 +1,11 @@
+class Solution {
+    public int leastInterval(char[] tasks, int n) {
+       int[] nums=new int[26];
+        for(char c:tasks)
+            nums[c-'A']++;
+        Arrays.sort(nums);
+        int i=24;
+        while(i>=0&&nums[i]==nums[25])i--;
+        return Math.max(n*(nums[25]-1)+nums[25]+25-i-1,tasks.length);
+    }
+}

@@ -1,0 +1,16 @@
+class Solution {
+    public int coinChange(int[] coins, int amount) {
+        int[] res=new int[amount+1];
+        for(int i=1;i<res.length;i++)
+            res[i]=Integer.MAX_VALUE;
+        for(int i=1;i<res.length;i++){
+            for(int a=0;a<coins.length;a++){
+                if(i-coins[a]>=0&&res[i-coins[a]]!=-1)
+                    res[i]=Math.min(res[i],res[i-coins[a]]+1);
+            }
+            if(res[i]==Integer.MAX_VALUE)
+                res[i]=-1;
+        }
+        return res[res.length-1];
+    }
+}
