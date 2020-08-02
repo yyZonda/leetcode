@@ -1,0 +1,36 @@
+class MyHashSet {
+
+    private boolean[] nums;
+    int valume;
+    /** Initialize your data structure here. */
+    public MyHashSet() {
+        valume=100;
+        nums=new boolean[valume];
+    }
+    
+    public void add(int key) {
+        if(key>=nums.length)
+            nums=Arrays.copyOf(nums,key+1);
+        nums[key]=true;
+    }
+    
+    public void remove(int key) {
+        if(key<nums.length&&nums[key])
+            nums[key]=false;
+    }
+    
+    /** Returns true if this set contains the specified element */
+    public boolean contains(int key) {
+        if(key>=nums.length)
+            return false;       
+        return nums[key];
+    }
+}
+
+/**
+ * Your MyHashSet object will be instantiated and called as such:
+ * MyHashSet obj = new MyHashSet();
+ * obj.add(key);
+ * obj.remove(key);
+ * boolean param_3 = obj.contains(key);
+ */
