@@ -1,0 +1,40 @@
+class Solution {
+    public boolean possibleBipartition(int N, int[][] dislikes) {
+        int[] color=new int[N+1];
+        // Arrays.sort(dislikes,(a,b)->(a[0]-a[1]));
+        Map<Integer,List<Integer>> num = new HashMap();
+        for(int[] i : dislikes){
+            num.putIfAbsent(i[0],new ArrayList());
+            num.putIfAbsent(i[1],new ArrayList());
+            num.get(i[0]).add(i[1]);
+            num.get(i[1]).add(i[0]);
+        }
+            
+        for(int i=1;i<=N;i++){
+            
+            if(color[i]!=0)
+                continue;
+            
+            Queue<Integer> queue=new LinkedList();
+            color[i]=1;
+            queue.add(i);
+            
+            while(!queue.isEmpty()){
+                int tmp=queue.poll();
+                int col=color[tmp];
+                if(num.containsKey(tmp)){
+                for(int a : num.get(tmp)){
+                    if(color[a]!=0){
+                        if(color[a]==color[tmp])
+                            return false;
+                    }else{
+                        color[a]=-color[tmp];
+                        queue.add(a);
+                    }
+                }
+                }
+            }
+        }
+        return true;
+    }
+}
