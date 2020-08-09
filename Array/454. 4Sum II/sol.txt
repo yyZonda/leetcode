@@ -1,0 +1,19 @@
+class Solution {
+    public int fourSumCount(int[] A, int[] B, int[] C, int[] D) {
+        int res=0;
+        HashMap<Integer,Integer> first=new HashMap();
+        int len=A.length;
+        for(int a=0;a<len;a++){
+            for(int b=0;b<len;b++){
+                first.put(A[a]+B[b],first.getOrDefault(A[a]+B[b],0)+1);
+            }       
+        }
+        for(int a=0;a<len;a++){
+            for(int b=0;b<len;b++){
+                res+=first.getOrDefault(-(C[a]+D[b]),0);
+            }
+        }
+        
+        return res;
+    }
+}
