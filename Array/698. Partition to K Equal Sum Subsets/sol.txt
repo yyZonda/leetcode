@@ -1,0 +1,38 @@
+class Solution {
+    public boolean canPartitionKSubsets(int[] nums, int k) {
+        Arrays.sort(nums);
+        int sum=0;
+        for(int i : nums)
+            sum+=i;
+        if(sum%k!=0)
+        return false;
+        sum=sum/k;
+        return helper(nums,0,k,sum,0,new boolean[nums.length]);
+    }
+    public boolean helper(int[] nums, int cur,int k,int sum,int s,boolean[] meet){
+        if(k==0)
+            return true;
+        if(cur>=nums.length)
+            return false;
+        boolean res=false;
+        for(int i=cur;i<nums.length;i++){
+            if(meet[i])
+                continue;
+            if(s+nums[i]==sum){
+                 meet[i]=true;
+                 res= helper(nums,0,k-1,sum,0,meet);
+            }
+            else if(s+nums[i]>sum)
+                return false;
+            else{
+                meet[i]=true;
+                res = helper(nums,i+1,k,sum,s+nums[i],meet);
+            }
+            if(res)
+                return true;
+            meet[i]=false;
+            while(i<nums.length-1&&nums[i]==nums[i+1]) i++;
+        }
+        return false;
+    }
+}
