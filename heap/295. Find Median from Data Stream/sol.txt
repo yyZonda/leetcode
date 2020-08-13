@@ -1,0 +1,41 @@
+class MedianFinder {
+
+    Queue<Integer> big ,small;
+    /** initialize your data structure here. */
+    public MedianFinder() {
+        big = new PriorityQueue();
+        small = new PriorityQueue(new Comparator<Integer>(){
+            @Override
+            public int compare(Integer a1,Integer a2){
+                return a2-a1;
+            }
+        });
+    }
+    
+    public void addNum(int num) {
+        if(small.isEmpty())
+            small.offer(num);
+        else if(num>small.peek())
+            big.offer(num);
+        else
+            small.offer(num);
+        if(small.size()-big.size()>1)
+            big.offer(small.poll());
+        if(big.size()-small.size()>1)
+            small.offer(big.poll());
+    }
+    
+    public double findMedian() {
+        if(small.size()==big.size())
+            return (double)(small.peek()+big.peek())/2;
+        else
+            return small.size()>big.size()?small.peek():big.peek();
+    }
+}
+
+/**
+ * Your MedianFinder object will be instantiated and called as such:
+ * MedianFinder obj = new MedianFinder();
+ * obj.addNum(num);
+ * double param_2 = obj.findMedian();
+ */
