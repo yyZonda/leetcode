@@ -1,0 +1,23 @@
+class Solution {
+    public int monotoneIncreasingDigits(int N) {
+        char[] nums=String.valueOf(N).toCharArray();
+        int cur=;
+        for(int i=nums.length-2;i>=0;i--){
+            if(nums[i]>nums[i+1]){
+                nums[i]--;
+                cur=i;
+            }
+        }
+        
+        for(int a=cur+1;a<nums.length;a++){
+            nums[a]='9';
+        }
+                
+            
+        int sum=0;
+        for(char c:nums){
+            sum=sum*10+(c-'0');
+        }
+        return sum;
+    }
+}
