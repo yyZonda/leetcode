@@ -1,0 +1,18 @@
+class Solution {
+    public boolean checkSubarraySum(int[] nums, int k) {
+        HashMap<Integer,Integer> hm=new HashMap();
+        hm.put(0,-1);
+        int sum=0;
+        for(int i=0;i<nums.length;i++){         
+            sum+=nums[i];
+            int cur=sum;
+            if(k!=0)
+            cur=sum%k;
+            // if(cur<0) cur+=k;
+            if(hm.containsKey(cur)&&i-hm.get(cur)>1)
+                return true;
+            hm.put(cur,hm.getOrDefault(cur,i));
+        }
+        return false;
+    }
+}

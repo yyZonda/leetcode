@@ -1,0 +1,57 @@
+class Solution {
+    private int min=Integer.MAX_VALUE;
+    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int K) {
+       int[][] dis=new int[n][n];
+        for(int[] flight:flights){
+            dis[flight[0]][flight[1]]=flight[2];
+        }
+        // boolean[] meet=new boolean[n];
+        // meet[src]=true;
+        //  helper(dis,src,dst,K,0,meet);
+        // return min==Integer.MAX_VALUE?-1:min;
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a,b)->(a[0]-b[0]));
+        pq.offer(new int[]{0,src,K});
+        boolean[][] meet=new boolean[n][K+1];
+        while(!pq.isEmpty()){
+            int[] cur=pq.poll();
+            int pre=cur[1];
+            if(cur[1]==dst&&cur[2]>=-1)
+                return cur[0];
+            if(cur[2]<0)
+                continue; 
+            meet[cur[1]][cur[2]]=true;
+            for(int i=0;i<n;i++){
+                if(dis[pre][i]!=0&&!meet[i][cur[2]]){
+                    pq.offer(new int[]{cur[0]+dis[pre][i],i,cur[2]-1});
+                }
+            }
+        }
+        return -1;
+    }
+    
+//      public void helper(int[][] dis,int src,int dst,int k,int cur,boolean[] meet){           
+//         if(src==dst){
+//             min=cur;
+//             return;
+//         }
+//          if(k<0){
+//             return;
+//         }  
+                          
+//         for(int a=0;a<dis[0].length;a++){          
+//             if(dis[src][a]!=0){  
+//                 if(!meet[a]){
+//                     meet[a]=true;
+//                     if(cur+dis[src][a]>min){
+//                         meet[a]=false;
+//                         continue;
+//                     }
+//                     helper(dis,a,dst,k-1,cur+dis[src][a],meet);   
+//                     meet[a]=false;
+//                 }
+//             }
+//         }      
+//     }
+    
+
+}

@@ -1,0 +1,27 @@
+class Solution {
+    public void nextPermutation(int[] nums) {
+        if(nums.length<=1)
+            return;
+        int t=nums.length-2;
+        int r=nums.length-1;
+        while(t >= 0 && nums[t]>=nums[t+1])
+            t--;
+        if(t>=0){          
+            while(nums[t]>=nums[r])
+                r--;
+            swap(nums,t,r);
+            
+        }
+        t++;
+        r=nums.length-1;
+        while(t<r){
+           swap(nums,t++,r--);
+        }
+    }
+    public void swap(int[] nums,int l,int r){        
+            int tmp=nums[l];
+            nums[l]=nums[r];
+            nums[r]=tmp;
+    }
+    
+}

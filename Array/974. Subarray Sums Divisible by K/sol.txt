@@ -1,0 +1,16 @@
+class Solution {
+    public int subarraysDivByK(int[] A, int K) {
+        Map<Integer,Integer> map= new HashMap();
+        map.put(0,1);
+        int times=0;
+        int sum=0;
+        for(int i=0;i<A.length;i++){
+            sum+=A[i];
+            int curs=(sum%K+K)%K;
+            if(map.containsKey(curs))
+                times+=map.get(curs);
+            map.put(curs,map.getOrDefault(curs,0)+1);
+        }
+    return times;
+    }
+}

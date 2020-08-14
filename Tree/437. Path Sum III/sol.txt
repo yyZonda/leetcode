@@ -1,0 +1,62 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    // private int times=0;
+    public int pathSum(TreeNode root, int sum) {
+        HashMap<Integer, Integer> preSum = new HashMap();
+        preSum.put(0,1);
+       return  helper(root,0,sum,preSum);
+        
+    }
+    public int helper(TreeNode root,int curSum,int sum,HashMap<Integer,Integer> map){
+        if(root==null)
+            return 0;
+        
+        int cur=root.val;
+        cur+=curSum;
+        map.putIfAbsent(cur,0);
+        int res=map.getOrDefault(cur-sum,0);
+        
+        map.put(cur,map.get(cur)+1);
+        
+        res+=helper(root.left,cur,sum,map)+helper(root.right,cur,sum,map);
+        map.put(cur,map.get(cur)-1);
+        return res;
+    }
+    
+    // public List<Integer> helper(TreeNode root,List<Integer> sums,int sum){
+    //     if(root==null)
+    //         return new ArrayList();
+    //     List<Integer> left = helper(root.left,sums,sum);
+    //     List<Integer> right = helper(root.right,sums,sum);
+    //     int cur=root.val;
+    //     if(cur==sum)
+    //         times++;
+    //     List<Integer> list=new ArrayList();
+    //     list.add(cur);
+    //     for(int i:left){
+    //         list.add(i+cur);
+    //         if(list.get(list.size()-1)==sum)
+    //             times++;
+    //     }
+    //     for(int i:right){
+    //         list.add(i+cur);
+    //         if(list.get(list.size()-1)==sum)
+    //             times++;
+    //     }
+    //     return list;
+    // }
+}

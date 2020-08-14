@@ -1,0 +1,23 @@
+class Solution {
+    public int[] nextGreaterElement(int[] nums1, int[] nums2) {
+        HashMap<Integer,Integer> hm = new HashMap();
+        Stack<Integer> stack = new Stack();
+        stack.push(Integer.MAX_VALUE);
+        for(int n:nums2){
+            while(stack.peek()<n){
+                int tmp=stack.pop();
+                hm.put(tmp,n);
+            }
+             stack.push(n);   
+        }
+        int[] res=new int[nums1.length];
+        int cur=0;
+        for(int n:nums1){
+            if(hm.containsKey(n))
+                res[cur++]=hm.get(n);
+            else
+                res[cur++]=-1;
+        }
+        return res;
+    }
+}
