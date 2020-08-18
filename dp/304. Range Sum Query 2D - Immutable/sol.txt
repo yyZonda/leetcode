@@ -1,0 +1,48 @@
+class NumMatrix {
+
+    // int[][] row;
+    int[][] col;
+    int r=0,c=0;
+    public NumMatrix(int[][] matrix) {
+        if(matrix.length==0||matrix[0].length==0)
+            return;
+         r = matrix.length;
+         c = matrix[0].length;
+        // row=new int[r][c+1];
+        col=new int[r+1][c];
+        // for(int a=0;a<r;a++){
+        //     for(int b=1;b<c+1;b++){
+        //         if(b==1)
+        //             row[a][b]=matrix[a][b-1];
+        //         else
+        //             row[a][b]=row[a][b-1]+matrix[a][b-1];
+        //     }
+        // }
+        for(int a=0;a<c;a++){
+            for(int b=1;b<r+1;b++){
+                if(b==1)
+                    col[b][a]=matrix[b-1][a];
+                else
+                    col[b][a]=col[b-1][a]+matrix[b-1][a];
+            }
+        }
+        
+    }
+    
+    public int sumRegion(int row1, int col1, int row2, int col2) {
+        if(r==0||c==0)
+            return 0;
+        int sum=0;
+        for(int i=col1;i<=col2;i++)
+            sum+=col[row2+1][i]-col[row1][i];
+        // for(int i=row1;i<=row2;i++)
+        //     sum+=row[i][col2+1]-row[i][col1];
+        return sum;
+    }
+}
+
+/**
+ * Your NumMatrix object will be instantiated and called as such:
+ * NumMatrix obj = new NumMatrix(matrix);
+ * int param_1 = obj.sumRegion(row1,col1,row2,col2);
+ */
