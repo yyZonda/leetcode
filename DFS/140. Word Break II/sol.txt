@@ -1,0 +1,58 @@
+class Solution {
+    public List<String> wordBreak(String s, List<String> wordDict) {
+        Set<String> wordD = new HashSet(wordDict);
+        return helper(0,s,wordD,new HashMap());
+    }
+    public List<String> helper(int current,String s,Set<String> wordD,Map<Integer,List<String>> meet){
+        if(current>=s.length()){
+            return new ArrayList(Arrays.asList(""));
+        }
+        if(meet.containsKey(current))
+            return meet.get(current);
+        List<String> cur = new ArrayList();
+        for(int i=current+1;i<=s.length();i++){
+            String tmp=s.substring(current,i);
+            if(wordD.contains(tmp)){
+                List<String> next = helper(i,s,wordD,meet);
+                if(next.size()!=0){
+                for(String si:next)
+                    cur.add((tmp+" "+si).trim());
+                }
+            }
+        }
+        meet.put(current,cur);
+        return cur;
+    }
+    // public List<String> wordBreak(String s, List<String> wordDict) {
+    //     Set<String> wordD = new HashSet(wordDict);
+        // boolean[] dp=new boolean[s.length()+1];
+        // List<StringBuilder>[] words = new List[s.length()+1];
+        // for(int i=0;i<words.length;i++)
+        //     words[i]=new ArrayList();
+        // words[0].add(new StringBuilder());
+        // dp[0]=true;
+        // for(int i=1;i<dp.length;i++){
+        //     boolean meet=false;
+        //     for(int a=0;a<i;a++){
+        //     dp[i]=dp[a]&&wordD.contains(s.substring(a,i));
+        //         if(dp[i]){
+        //             for(StringBuilder sb:words[a])
+        //                 words[i].add(new StringBuilder(sb.toString()+" "+s.substring(a,i)));
+        //             meet=true;
+        //         }
+        // }
+        // if(meet){
+        //     dp[i]=true;
+        //     meet=false;
+        // }
+        // }
+        // List<String> res=new ArrayList();
+        // for(StringBuilder sb:words[words.length-1]){
+        //     res.add(sb.toString().trim());
+        // }
+        // return res;
+    //     List<String> res = new ArrayList();
+    //     helper(res,0,s,wordD,"");
+    //     return res;
+    // }
+}
