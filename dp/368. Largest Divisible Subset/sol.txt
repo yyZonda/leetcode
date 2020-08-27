@@ -1,0 +1,27 @@
+class Solution {
+    public List<Integer> largestDivisibleSubset(int[] nums) {
+        Arrays.sort(nums);
+        Map<Integer,List<Integer>> map = new HashMap();
+       return helper(nums,0,map);        
+    }
+    public List<Integer> helper(int[] nums,int cur,Map<Integer,List<Integer>> map){
+        if(cur>=nums.length){
+            return new ArrayList();
+        }
+        if(map.containsKey(cur))
+            return map.get(cur);
+        List<Integer> tmp = new ArrayList();
+        int div = cur==0?1:nums[cur-1];
+        for(int i=cur;i<nums.length;i++){
+           if(nums[i]%div==0){
+               List<Integer> now = new ArrayList(helper(nums,i+1,map));
+               now.add(nums[i]);
+               if(now.size()>tmp.size())
+                   tmp=now;
+           }      
+    }
+        map.put(cur,tmp);
+        return tmp;
+    }
+     
+}
