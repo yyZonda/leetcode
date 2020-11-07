@@ -1,0 +1,79 @@
+class Solution {
+    public int findMaxForm(String[] strs, int m, int n) {
+          int[][][] dp = new int[strs.length+1][n+1][m+1];
+        int max = 0;
+        for(int i=1;i<=strs.length;i++){
+            String s = strs[i-1];
+            int one = ones(s);
+            int zeo = s.length()-one;
+            for(int a=0;a<=n;a++)
+                for(int b=0;b<=m;b++){
+                    if(a>=one&&b>=zeo)
+                    dp[i][a][b]=Math.max(dp[i-1][a][b],dp[i-1][a-one][b-zeo]+1); 
+                    else
+                        dp[i][a][b]=dp[i-1][a][b];
+                    
+                }
+            }
+        return dp[strs.length][n][m];
+    }
+    public int ones(String s){
+        int m = 0;
+        for(char c:s.toCharArray()){
+            if(c=='1')
+                m++;
+        }
+        return m;
+    }
+        ///////////////////////////2
+//       int[][] dp = new int[n+1][m+1];
+//         int max = 0;
+//         for(int i=1;i<=strs.length;i++){
+//             String s = strs[i-1];
+//             int one = ones(s);
+//             int zeo = s.length()-one;
+//             for(int a=n;a>=one;a--)
+//                 for(int b=m;b>=zeo;b--){
+//                     dp[a][b]=Math.max(dp[a][b],dp[a-one][b-zeo]+1); 
+                    
+//                 }
+//             }
+//         return dp[n][m];
+//     }
+//     public int ones(String s){
+//         int m = 0;
+//         for(char c:s.toCharArray()){
+//             if(c=='1')
+//                 m++;
+//         }
+//         return m;
+//     }
+    
+        
+        
+        
+    //     int[][][] meet=new int[m+1][n+1][strs.length];
+    //     return operate(strs,m,n,0,meet);
+    // }
+    // public int operate(String[] strs,int m,int n,int pos,int[][][] meet){
+    //     if(pos>=strs.length||m+n==0)
+    //         return 0;
+    //     if(meet[m][n][pos]!=0)
+    //         return meet[m][n][pos];
+    //     String s=strs[pos];
+    //     int mm=0,nn=0;
+    //     int n1=0,n2=0;
+    //     for(char i:s.toCharArray()){
+    //         if(i=='1')
+    //             nn++;
+    //         else
+    //             mm++;
+    //     }
+    //     if(mm<=m && nn<=n){
+    //         n1=operate(strs,m-mm,n-nn,pos+1,meet)+1;       
+    //     }
+    //     n2=operate(strs,m,n,pos+1,meet);
+    //     meet[m][n][pos]=Math.max(n1,n2);
+    //     return Math.max(n1,n2);
+    // }
+}
