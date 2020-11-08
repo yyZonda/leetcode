@@ -1,0 +1,17 @@
+class Solution {
+    public boolean isSubsequence(String s, String t) {
+        int cur = 0;
+        boolean res = true;
+       l1: for(char c:s.toCharArray()){
+            for(;cur<t.length();cur++){
+                if(c==t.charAt(cur)){
+                    cur++;
+                    continue l1;
+                }
+            }
+        res = false;
+        break;
+        }
+        return res;
+    }
+}
