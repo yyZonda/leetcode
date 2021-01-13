@@ -1,0 +1,17 @@
+
+func twoSum(nums []int, target int) []int {
+    var num map[int]int 
+    num = make(map[int]int)
+    for a,b := range nums{
+        num[b]=a
+    }
+    for a,b := range nums{
+        value,ok := num[target-b]
+        if(value!=a&&ok){
+            res := []int{a,value}
+            return res
+        }
+    }
+    res :=[]int{0,0}
+    return res
+}
